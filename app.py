@@ -78,8 +78,7 @@ async def analyze_text(request: TextRequest):
     try:
         sentiment_result = sentiment_pipe(request.text)[0]
         doc = nlp(request.text)
-
-        # Improved keyword extraction: noun chunks + adjectives
+        
         keywords = [chunk.text for chunk in doc.noun_chunks]
         keywords += [token.text for token in doc if token.pos_ == "ADJ"]
         unique_keywords = list(dict.fromkeys(keywords))[:5]
